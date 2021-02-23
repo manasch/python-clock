@@ -2,7 +2,6 @@ import turtle as tr
 import time
 import tkinter as tk
 
-
 wn = tr.Screen()
 wn.bgcolor("black")
 wn.setup(width=1000, height=600)
@@ -19,7 +18,7 @@ def draw_circle(pen,r,fillcolor=False,col="white"): #col - pencolor
         pen.up()
         pen.goto(0,r)
         pen.setheading(180)
-        pen.pensize(2)
+        pen.pensize(4)
         pen.color(col)
         pen.pendown()
         pen.fillcolor(col)
@@ -34,7 +33,7 @@ def draw_circle(pen,r,fillcolor=False,col="white"): #col - pencolor
         pen.up()
         pen.goto(0,r)
         pen.setheading(180)
-        pen.pensize(2)
+        pen.pensize(4)
         pen.color(col)
         pen.pendown()
         pen.circle(r)
@@ -45,27 +44,25 @@ def draw_circle(pen,r,fillcolor=False,col="white"): #col - pencolor
 
 def draw_line(pen,col="white"):
 
-    i=0
-    while i < 12:
-        pen.color(col)
-        pen.fd(170)
-        pen.pendown()
-        pen.fd(20)
-        pen.penup()
-        pen.goto(0,0)
-        pen.rt(30)
-        i+=1
-    
-    j=0
-    while j < 60:
-        pen.color(col)
-        pen.fd(190)
-        pen.pendown()
-        pen.fd(10)
-        pen.penup()
-        pen.goto(0,0)
+    for i in range(60):
+        if i % 5 == 0:
+            pen.pensize(4)
+            pen.up()
+            pen.fd(170)
+            pen.pendown()
+            pen.fd(30)
+            pen.penup()
+            pen.goto(0,0)
+        else:
+            pen.pensize(2)
+            pen.up()
+            pen.fd(190)
+            pen.pendown()
+            pen.fd(10)
+            pen.penup()
+            pen.goto(0,0)
         pen.rt(6)
-        j+=1
+
 
 
 
@@ -110,14 +107,25 @@ def hour_hand(pen,h):
 
 
 
-#def print_num():
-
+def print_num():
+    deg=90
+    i=12
+    while i > 0:
+        pen.goto(0,0)
+        pen.setheading(deg)
+        pen.up()
+        pen.fd(140)
+        pen.write(str(i),align="center",font=("Courier",25,"normal"))
+        pen.penup()
+        deg+=30
+        i-=1
 
 
 while True:
     h=int(time.strftime("%I"))
     m=int(time.strftime("%M"))
     s=int(time.strftime("%S"))
+    h=(h*60 + m)/60
 
     draw_circle(pen,200)
     draw_circle(pen,220)
@@ -126,6 +134,7 @@ while True:
     min_hand(pen,m)
     sec_hand(pen,s)
     hour_hand(pen,h)
+    print_num()
 
     wn.update()
     time.sleep(1)
