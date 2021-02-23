@@ -3,7 +3,7 @@ import time
 
 
 wn = turtle.Screen()
-wn.bgcolor("black")
+wn.bgcolor("white")
 wn.setup(width=600, height=600)
 wn.title("Analogue Clock")
 wn.tracer(0)
