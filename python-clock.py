@@ -79,7 +79,7 @@ def min_hand(pen,m):
     angle=(m/60)*360
     pen.rt(angle)
     pen.pendown()
-    pen.bk(2    0)
+    pen.bk(20)
     pen.fd(140)
 
 def sec_hand(pen,s):
