@@ -111,10 +111,11 @@ def print_num():
     deg=90
     i=12
     while i > 0:
-        pen.goto(0,0)
+        pen.up()
+        pen.goto(0,-20)
         pen.setheading(deg)
         pen.up()
-        pen.fd(140)
+        pen.fd(150)
         pen.write(str(i),align="center",font=("Courier",25,"normal"))
         pen.penup()
         deg+=30
@@ -135,6 +136,7 @@ while True:
     sec_hand(pen,s)
     hour_hand(pen,h)
     print_num()
+    
 
     wn.update()
     time.sleep(1)
