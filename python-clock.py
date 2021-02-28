@@ -63,9 +63,6 @@ def draw_line(pen,col="white"):
             pen.goto(0,0)
         pen.rt(6)
 
-
-
-
 def min_hand(pen,m):
     
     pen.up()
@@ -105,8 +102,6 @@ def hour_hand(pen,h):
     pen.bk(20)
     pen.fd(100)
 
-
-
 def print_num():
     deg=90
     i=12
@@ -116,30 +111,38 @@ def print_num():
         pen.setheading(deg)
         pen.up()
         pen.fd(150)
-        pen.write(str(i),align="center",font=("Courier",25,"normal"))
+        pen.write(str(i),align="center",font=("Comic Sans MS",25,"normal"))
         pen.penup()
         deg+=30
         i-=1
 
 
-while True:
-    h=int(time.strftime("%I"))
-    m=int(time.strftime("%M"))
-    s=int(time.strftime("%S"))
-    h=(h*60 + m)/60
+def onclick():
 
-    draw_circle(pen,200)
-    draw_circle(pen,220)
-    draw_circle(pen,5,True,"white")
-    draw_line(pen)
-    min_hand(pen,m)
-    sec_hand(pen,s)
-    hour_hand(pen,h)
-    print_num()
-    
+    while True:
+        h=int(time.strftime("%I")) #returns the hour in 12 hour format
+        m=int(time.strftime("%M")) #returns the minute
+        s=int(time.strftime("%S")) #returns the second
+        h=(h*60 + m)/60
 
-    wn.update()
-    time.sleep(1)
-    pen.clear()
+        draw_circle(pen,200)
+        draw_circle(pen,220)
+        draw_circle(pen,5,True,"white")
+        draw_line(pen)
+        min_hand(pen,m)
+        sec_hand(pen,s)  
+        hour_hand(pen,h)
+        print_num()
+        
+
+        wn.update()
+        time.sleep(1)
+        pen.clear()
+
+
+canvas=wn.getcanvas()
+button=tk.Button(canvas.master, text="Click Here",command=onclick)
+canvas.create_window(-300,-200,window=button)
+
 
 wn.mainloop()
