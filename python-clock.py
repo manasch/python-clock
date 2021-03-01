@@ -16,99 +16,69 @@ pen.speed(0)
 
 #t_zones=[]
 
-def draw_circle(pen,r,fillcolor=False,col="white"): #col - pencolor
+def draw_circle(pen,r,fillcolor=False,col="white",size=4): #col - pencolor
+    pen.up()
+    pen.goto(0,r)
+    pen.setheading(180)
+    pen.pensize(size)
+    pen.color(col)
+    pen.pendown()
     if fillcolor==True:
-        pen.up()
-        pen.goto(0,r)
-        pen.setheading(180)
-        pen.pensize(4)
-        pen.color(col)
-        pen.pendown()
-        pen.fillcolor(col)
         pen.begin_fill()
         pen.circle(r)
         pen.end_fill()
-
-        pen.penup()
-        pen.goto(0,0)
-        pen.setheading(90)
     else:
-        pen.up()
-        pen.goto(0,r)
-        pen.setheading(180)
-        pen.pensize(4)
-        pen.color(col)
-        pen.pendown()
         pen.circle(r)
 
+def draw_line(pen,col="white"):
+    pen.color(col)
+    for i in range(60):
+        psize = 2
+        pfd = 190
+        pfd2 = 10
+        # Prints longer stripes for 1-12
+        if i % 5 == 0:
+            psize = 4
+            pfd = 170
+            pfd2 = 30
+
+        pen.pensize(psize)
+        pen.up()
+        pen.fd(pfd)
+        pen.pendown()
+        pen.fd(pfd2)
         pen.penup()
         pen.goto(0,0)
-        pen.setheading(90)
-
-def draw_line(pen,col="white"):
-
-    for i in range(60):
-        if i % 5 == 0:
-            pen.pensize(4)
-            pen.up()
-            pen.fd(170)
-            pen.pendown()
-            pen.fd(30)
-            pen.penup()
-            pen.goto(0,0)
-        else:
-            pen.pensize(2)
-            pen.up()
-            pen.fd(190)
-            pen.pendown()
-            pen.fd(10)
-            pen.penup()
-            pen.goto(0,0)
         pen.rt(6)
 
-def min_hand(pen,m):
-    
-    pen.up()
-    pen.goto(0,0)
-    pen.color("white")
-    pen.pensize(3)
-    pen.setheading(90)
-    angle=(m/60)*360
-    pen.rt(angle)
-    pen.pendown()
-    pen.bk(20)
-    pen.fd(140)
+'''
+h_type: hand type (hour,min,sec)
+size: width of the pen
+length: length of the hand
+'''
 
-def sec_hand(pen,s,col="red"):
+def draw_hands(pen,h_type,size,length,v=True,col="white"): # Set v as False to get the angle for hour, default is True for min & sec
 
     pen.up()
     pen.goto(0,0)
     pen.color(col)
-    pen.pensize(5)
+    pen.pensize(size)
     pen.setheading(90)
-    angle=(s/60)*360
+    # determine hand position based on type for hour and minute/second 
+    if v:
+        angle=(h_type/60)*360
+    else:
+        angle=(h_type/12)*360
     pen.rt(angle)
     pen.pendown()
     pen.bk(20)
-    pen.fd(160)
-
-def hour_hand(pen,h):
-
-    pen.up()
-    pen.goto(0,0)
-    pen.color("white")
-    pen.pensize(4)
-    pen.setheading(90)
-    angle=(h/12)*360
-    pen.rt(angle)
-    pen.pendown()
-    pen.bk(20)
-    pen.fd(100)
+    pen.fd(length)
 
 def print_num():
     deg=90
     i=12
     while i > 0:
+        pen.color("white")
         pen.up()
         pen.goto(0,-20)
         pen.setheading(deg)
@@ -119,7 +89,7 @@ def print_num():
         deg+=30
         i-=1
 '''
-    #Can be enabled if want 24 hour format display on the clock
+    # Can be enabled if want 24 hour format display on the clock
     deg=120
     i=23
     while i > 12:
@@ -134,7 +104,6 @@ def print_num():
         i-=1
 '''
 
-
 def print_time(h,m,s):
     pen.up()
     pen.goto(0,240)
@@ -146,31 +115,48 @@ def print_time(h,m,s):
 
 #def onclick():
 
+# Infinite loop to keep the clock running until stopped
 while True:
-    h=int(time.strftime("%I")) #returns the hour in 12 hour format
-    m=int(time.strftime("%M")) #returns the minute
-    s=int(time.strftime("%S")) #returns the second
+
+    # Returns the hour in 12 hour format
+    h=int(time.strftime("%I")) 
+
+    # Returns the minute
+    m=int(time.strftime("%M"))
+
+    # Returns the second
+    s=int(time.strftime("%S")) 
+
+    # hour hand position (position the handle between 3 & 4 when it's 3:30) 
     h1=(h*60 + m)/60
 
+    # drawing the inner circle
     draw_circle(pen,200)
+
+    # drawing the outer circle
     draw_circle(pen,220)
-    draw_circle(pen,5,True,"red")
+
+    # drawing the gear in the center 
+    draw_circle(pen,5,True)
+
+    # drawing the stripes 
     draw_line(pen)
-    min_hand(pen,m)
-    sec_hand(pen,s,"blue")  
-    hour_hand(pen,h1)
+
+    #Drawing the hour, minute and second hand
+
+    draw_hands(pen,h1,4,100,False) # hour
+    draw_hands(pen,m,2,140) # minute
+    draw_hands(pen,s,5,160,True,"red") # second
     print_num()
     print_time(h,m,s)
-
 
     wn.update()
     time.sleep(1)
     pen.clear()
 
-
 #canvas=wn.getcanvas()
 #button=tk.Button(canvas.master, text="Click Here",command=onclick)
 #canvas.create_window(-300,-200,window=button)
 
-
+# mainloop() used to keep the screen running, closes instantly otherwise
 wn.mainloop()
