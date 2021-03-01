@@ -9,12 +9,9 @@ wn.setup(width=1200, height=800)
 wn.title("Analogue Clock")
 wn.tracer(0)
 
-
 pen = tr.Turtle()
 pen.hideturtle()
 pen.speed(0)
-
-#t_zones=[]
 
 def draw_circle(pen,r,fillcolor=False,col="white",size=4): #col - pencolor
     pen.up()
@@ -112,14 +109,24 @@ def print_time(h,m,s):
     pen.goto(0,-290)
     pen.write(f"{time.strftime('%d')}/{time.strftime('%b')}/{time.strftime('%Y')}, {time.strftime('%A')}",align="center",font=("Comic Sans MS",25,"normal"))
 
+t_zones = [
+    "IST",
+    "UTC",
+]
 
+clicked=tk.StringVar()
+clicked.set(t_zones[0])
+
+canvas=wn.getcanvas()
+drop_down=tk.OptionMenu(canvas.master, clicked, *t_zones)
+canvas.create_window(-300,-200,window=drop_down)
+#canvas.mainloop()
 #def onclick():
-
 # Infinite loop to keep the clock running until stopped
 while True:
 
     # Returns the hour in 12 hour format
-    h=int(time.strftime("%I")) 
+    h=int(time.strftime("%I"))
 
     # Returns the minute
     m=int(time.strftime("%M"))
@@ -142,8 +149,7 @@ while True:
     # drawing the stripes 
     draw_line(pen)
 
-    #Drawing the hour, minute and second hand
-
+    #Drawing the hour, minute and second hand       
     draw_hands(pen,h1,4,100,False) # hour
     draw_hands(pen,m,2,140) # minute
     draw_hands(pen,s,5,160,True,"red") # second
@@ -154,9 +160,27 @@ while True:
     time.sleep(1)
     pen.clear()
 
-#canvas=wn.getcanvas()
-#button=tk.Button(canvas.master, text="Click Here",command=onclick)
-#canvas.create_window(-300,-200,window=button)
+    '''clicked=tk.StringVar()
+    clicked.set(t_zones[0])
+
+    canvas=wn.getcanvas()
+    drop_down=tk.OptionMenu(canvas.master, clicked, *t_zones)
+    canvas.create_window(-300,-200,window=drop_down)
+    #canvas.mainloop()'''
+
+
+    #clicked=tk.StringVar()
+    #clicked.set(t_zones[0])
+
+'''canvas=wn.getcanvas()
+button=tk.Button(canvas.master, text="click here", command=onclick)
+#breakpoint()
+canvas.create_window(-300,-200,window=button)
+#canvas.mainloop()'''
+
+
+
+
 
 # mainloop() used to keep the screen running, closes instantly otherwise
 wn.mainloop()

@@ -3,3 +3,6 @@ clock
 
 # vs code stuff
 .vscode
+
+# testing
+test.py
