@@ -1,6 +1,7 @@
 import turtle as tr
 import time
 import tkinter as tk
+from pytz import timezone
 
 wn = tr.Screen()
 wn.bgcolor("black")
@@ -12,6 +13,8 @@ wn.tracer(0)
 pen = tr.Turtle()
 pen.hideturtle()
 pen.speed(0)
+
+#t_zones=[]
 
 def draw_circle(pen,r,fillcolor=False,col="white"): #col - pencolor
     if fillcolor==True:
@@ -76,11 +79,11 @@ def min_hand(pen,m):
     pen.bk(20)
     pen.fd(140)
 
-def sec_hand(pen,s):
+def sec_hand(pen,s,col="red"):
 
     pen.up()
     pen.goto(0,0)
-    pen.color("red")
+    pen.color(col)
     pen.pensize(5)
     pen.setheading(90)
     angle=(s/60)*360
@@ -115,6 +118,22 @@ def print_num():
         pen.penup()
         deg+=30
         i-=1
+'''
+    #Can be enabled if want 24 hour format display on the clock
+    deg=120
+    i=23
+    while i > 12:
+        pen.up()
+        pen.goto(0,-15)
+        pen.setheading(deg)
+        pen.up()
+        pen.fd(110)
+        pen.write(str(i),align="center",font=("Comic Sans MS",15,"normal"))
+        pen.penup()
+        deg+=30
+        i-=1
+'''
+
 
 def print_time(h,m,s):
     pen.up()
@@ -135,10 +154,10 @@ while True:
 
     draw_circle(pen,200)
     draw_circle(pen,220)
-    draw_circle(pen,5,True,"white")
+    draw_circle(pen,5,True,"red")
     draw_line(pen)
     min_hand(pen,m)
-    sec_hand(pen,s)  
+    sec_hand(pen,s,"blue")  
     hour_hand(pen,h1)
     print_num()
     print_time(h,m,s)
