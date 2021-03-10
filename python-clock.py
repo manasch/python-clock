@@ -10,8 +10,11 @@ wn.title("Analogue Clock")
 wn.tracer(0)
 
 pen = tr.Turtle()
+pen1 = tr.Turtle()
+pen1.hideturtle()
 pen.hideturtle()
 pen.speed(0)
+pen1.speed(0)
 
 def draw_circle(pen,r,fillcolor=False,col="white",size=4): #col - pencolor
     pen.up()
@@ -82,7 +85,6 @@ def print_num():
         pen.up()
         pen.fd(145)
         pen.write(str(i),align="center",font=("Comic Sans MS",25,"normal"))
-        pen.penup()
         deg+=30
         i-=1
 '''
@@ -122,6 +124,19 @@ drop_down=tk.OptionMenu(canvas.master, clicked, *t_zones)
 canvas.create_window(-300,-200,window=drop_down)
 #canvas.mainloop()
 #def onclick():
+
+# drawing the inner circle
+draw_circle(pen1,200)
+
+# drawing the outer circle
+draw_circle(pen1,220)
+
+# drawing the gear in the center 
+draw_circle(pen1,5,True)
+
+# drawing the stripes 
+draw_line(pen1)
+
 # Infinite loop to keep the clock running until stopped
 while True:
 
@@ -135,19 +150,7 @@ while True:
     s=int(time.strftime("%S")) 
 
     # hour hand position (position the handle between 3 & 4 when it's 3:30) 
-    h1=(h*60 + m)/60
-
-    # drawing the inner circle
-    draw_circle(pen,200)
-
-    # drawing the outer circle
-    draw_circle(pen,220)
-
-    # drawing the gear in the center 
-    draw_circle(pen,5,True)
-
-    # drawing the stripes 
-    draw_line(pen)
+    h1=(h*60 + m)/60    
 
     #Drawing the hour, minute and second hand       
     draw_hands(pen,h1,4,100,False) # hour
@@ -179,8 +182,5 @@ canvas.create_window(-300,-200,window=button)
 #canvas.mainloop()'''
 
 
-
-
-
 # mainloop() used to keep the screen running, closes instantly otherwise
-wn.mainloop()
+#wn.mainloop()
