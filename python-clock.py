@@ -16,6 +16,7 @@ pen.hideturtle()
 pen.speed(0)
 pen1.speed(0)
 
+
 def draw_circle(pen,r,fillcolor=False,col="white",size=4): #col - pencolor
     pen.up()
     pen.goto(0,r)
@@ -74,7 +75,7 @@ def draw_hands(pen,h_type,size,length,v=True,col="white"): # Set v as False to g
     pen.bk(20)
     pen.fd(length)
 
-def print_num():
+def print_num(pen):
     deg=90
     i=12
     while i > 0:
@@ -104,6 +105,7 @@ def print_num():
 '''
 
 def print_time(h,m,s):
+    pen.color('white')
     pen.up()
     pen.goto(0,240)
     pen.write(f"{'%02d'%h}:{'%02d'%m}:{'%02d'%s} {time.strftime('%p')}",align="center",font=("Comic Sans MS",25,"normal"))
@@ -137,6 +139,8 @@ draw_circle(pen1,5,True)
 # drawing the stripes 
 draw_line(pen1)
 
+print_num(pen1)
+
 # Infinite loop to keep the clock running until stopped
 while True:
 
@@ -156,7 +160,7 @@ while True:
     draw_hands(pen,h1,4,100,False) # hour
     draw_hands(pen,m,2,140) # minute
     draw_hands(pen,s,5,160,True,"red") # second
-    print_num()
+    #print_num()
     print_time(h,m,s)
 
     wn.update()
@@ -184,3 +188,7 @@ canvas.create_window(-300,-200,window=button)
 
 # mainloop() used to keep the screen running, closes instantly otherwise
 #wn.mainloop()
+
+root = tk.Tkinter()
+button=Button(root, text="click here")
+root.mainloop()
