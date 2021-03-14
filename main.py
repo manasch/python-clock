@@ -6,11 +6,12 @@ import menu
 from menu import colors
 
 wn = tr.Screen()
-wn.bgcolor(colors["bg_col"])
-wn.setup(width=1200, height=800)
+wn.setup(width=1200, height=750,starty=20)
 wn.title("Analogue Clock")
 wn.tracer(0)
-
+def init():
+    wn.bgcolor(colors["bg_col"])
+init()
 pen = tr.Turtle()
 pen1 = tr.Turtle()
 pen1.hideturtle()
@@ -54,11 +55,11 @@ def draw_line(pen,col):
         pen.goto(0,0)
         pen.rt(6)
 
-'''
+"""
 h_type: hand type (hour,min,sec)
 size: width of the pen
 length: length of the hand
-'''
+"""
 
 def draw_hands(pen,h_type,size,length,col,v=True): # Set v as False to get the angle for hour, default is True for min & sec
 
@@ -113,30 +114,31 @@ canvas=wn.getcanvas()
 drop_down=tk.OptionMenu(canvas.master, clicked, *t_zones)
 canvas.create_window(-300,-200,window=drop_down)
 '''
+def draw():
+    # drawing the inner circle
+    draw_circle(pen1,200,col=colors["i_circle"])
 
-# drawing the inner circle
-draw_circle(pen1,200,col=colors["i_circle"])
+    # drawing the outer circle
+    draw_circle(pen1,220,col=colors["o_circle"])
 
-# drawing the outer circle
-draw_circle(pen1,220,col=colors["o_circle"])
+    # drawing the gear in the center 
+    draw_circle(pen1,5,fillcolor=True,col=colors["gear"])
 
-# drawing the gear in the center 
-draw_circle(pen1,5,fillcolor=True,col=colors["gear"])
+    # drawing the stripes 
+    draw_line(pen1,col=colors["line"])
 
-# drawing the stripes 
-draw_line(pen1,col=colors["line"])
+    print_num(pen1,col=colors["num"])
 
-print_num(pen1,col=colors["num"])
+draw()
 
 canvas=wn.getcanvas()
 
 but=tk.Button(canvas.master, text="Customise",command=menu.menu)
-canvas.create_window(200, -200, window=but)
-#print(menu.colors)
+canvas.create_window(450, 200, window=but)
 
 # Infinite loop to keep the clock running until stopped
 while True:
-
+    print(colors["bg_col"])
     # Returns the hour in 12 hour format
     h=int(time.strftime("%I"))
 
@@ -149,17 +151,22 @@ while True:
     # hour hand position (position the handle between 3 & 4 when it's 3:30) 
     h1=(h*60 + m)/60    
 
-    #Drawing the hour, minute and second hand       
+    #Drawing the hour, minute and second hand
     draw_hands(pen,h1,4,100,v=False,col=colors["hour"]) # hour
     draw_hands(pen,m,2,140,col=colors["min"]) # minute
     draw_hands(pen,s,5,160,v=True,col=colors["sec"]) # second
     print_time(h,m,s)
 
+    init()
     wn.update()
     time.sleep(1)
     pen.clear()
 
 
+
+
+
+
 # mainloop() used to keep the screen running, closes instantly otherwise
-wn.mainloop()
+#wn.mainloop()
 
