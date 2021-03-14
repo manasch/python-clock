@@ -89,21 +89,6 @@ def print_num(pen,col="white"):
         pen.write(str(i),align="center",font=("Comic Sans MS",25,"normal"))
         deg+=30
         i-=1
-'''
-    # Can be enabled if want 24 hour format display on the clock
-    deg=120
-    i=23
-    while i > 12:
-        pen.up()
-        pen.goto(0,-15)
-        pen.setheading(deg)
-        pen.up()
-        pen.fd(110)
-        pen.write(str(i),align="center",font=("Comic Sans MS",15,"normal"))
-        pen.penup()
-        deg+=30
-        i-=1
-'''
 
 def print_time(h,m,s,col="white"):
     pen.color(col)
