@@ -139,8 +139,17 @@ canvas.create_window(450, 200, window=but)
 def close():
     wn._destroy()
 
+def reset():
+    menu.colors["hour"]="white"
+    menu.colors["min"]="white"
+    menu.colors["sec"]="red"
+    menu.colors["bg_col"]="black"
+
 but2=tk.Button(canvas.master, text="Close",command=close)
 canvas.create_window(450, 240, window=but2)
+
+but3=tk.Button(canvas.master, text="Reset",command=reset)
+canvas.create_window(450, 280, window=but3)
 
 # Infinite loop to keep the clock running until stopped
 while True:
