@@ -136,9 +136,15 @@ canvas=wn.getcanvas()
 but=tk.Button(canvas.master, text="Customise",command=menu.menu)
 canvas.create_window(450, 200, window=but)
 
+def close():
+    wn._destroy()
+
+but2=tk.Button(canvas.master, text="Close",command=close)
+canvas.create_window(450, 240, window=but2)
+
 # Infinite loop to keep the clock running until stopped
 while True:
-    print(colors["bg_col"])
+    #print(colors["bg_col"])
     # Returns the hour in 12 hour format
     h=int(time.strftime("%I"))
 
