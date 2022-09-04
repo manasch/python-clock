@@ -1,0 +1,24 @@
+Title: Analogue Clock
+
+Description: An analogue clock is a clock that has moving hands that rotate about a fixed dial at the center.
+It also has numbers marked from 1-12.
+This python program attempts to simulate an analogue clock on a GUI called turtle by drawing the moving hands on the canvas.
+Data structures used are Int, Lists ..etc
+
+Expected Outcome: The GUI should display a working analogue clock using the system's time, a drop down menu to change the time zones.
+
+Structure to take Input and display Outcome:
+Input - Drop down box to choose different time zones
+Output - Displays time in different time zones
+
+Python Module: pytz==2021.1 (pip install pytz)
+'''This library allows accurate and cross platform timezone calculations using Python 2.4 or higher. It also solves the issue of ambiguous times at the end of daylight saving time, which you can read more about in the Python Library Reference'''
+module is used for getting different time zones
+
+Team Details: Manas Chebrolu & Chiranth R
+
+Team No: 4
+
+Name and SRN:
+Manas - PES1UG20CS111
+Chiranth - PES1UG20CS116
